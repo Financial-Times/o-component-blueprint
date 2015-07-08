@@ -25,7 +25,7 @@ Project structure for new Origami components.
 
 ### Deploying for the first time
 
-1. Create a new repository (tipically: on GitHub)
+1. Create a new repository (typically: on GitHub)
 2. Delete the existing Git directory: `rm -Rf .git`
 3. Initialise a new local Git repository: `git init .`
 4. Add the remote repository:
