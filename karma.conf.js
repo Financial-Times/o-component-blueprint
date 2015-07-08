@@ -2,7 +2,7 @@
 'use strict';
 
 module.exports = function(config) {
-	config.set({
+    var karmaConfig = {
 
 		// base path that will be used to resolve all patterns (eg. files, exclude)
 		basePath: '',
@@ -36,7 +36,7 @@ module.exports = function(config) {
 		// test results reporter to use
 		// possible values: 'dots', 'progress'
 		// available reporters: https://npmjs.org/browse/keyword/karma-reporter
-		reporters: ['progress'],
+		reporters: ['progress', 'coverage'],
 
 
 		// web server port
@@ -65,10 +65,33 @@ module.exports = function(config) {
 		// if true, Karma captures browsers, runs the tests and exits
 		singleRun: true,
 
-		browserify: {
-			debug: true,
-			transform: [ 'debowerify' ]
-		}
+        coverageReporter: {
+            dir : 'test/coverage/',
+            reporters: [
+                { type: 'html',
+                    subdir: function(browser) {
+                        return browser.toLowerCase().split(/[ /-]/)[0];
+                    },
+                    watermarks: {
+                        statements: [75, 85],
+                        lines: [75, 85],
+                        functions: [75, 85],
+                        branches:[75, 85]
+                    }},
+                { type: 'json-summary', subdir: '.', file: 'summary.json' },
+            ]
+        }
+	};
 
-	});
+    //capture browserify config set in package.json to help prevent code duplication
+    var pkg = require('./package.json');
+    karmaConfig.browser = pkg.browser || {};
+    karmaConfig["browserify-shim"] = pkg["browserify-shim"] || {};
+    karmaConfig.browserify = pkg.browserify || {};
+    if (karmaConfig.browserify.transform) {
+        karmaConfig.browserify.transform.push('browserify-istanbul');
+    } else {
+        karmaConfig.browserify.transform = [ 'browserify-istanbul' ];
+    }
+    return config.set(karmaConfig);
 };
