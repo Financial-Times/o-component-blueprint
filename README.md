@@ -1,5 +1,7 @@
 # o-component-blueprint
 
+**This blueprint is now deprecated, please use [o-component-boilerplate](https://github.com/Financial-Times/o-component-boilerplate)**
+
 **Note:** This is not a usable Origami component.
 
 Project structure for new Origami components.

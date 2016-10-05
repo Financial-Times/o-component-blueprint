@@ -3,7 +3,7 @@
     "origamiType": "module",
     "origamiVersion": 1,
     "support": "https://github.com/Financial-Times/o-component-blueprint/issues",
-    "supportStatus": "experimental",
+    "supportStatus": "deprecated",
     "demos": [
         {
             "path": "/demos/demo.html",
